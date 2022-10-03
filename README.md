@@ -1,4 +1,4 @@
-# Jate [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# JATE - Just Another Text Editor [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
 A pwa web based text editor. Your text gets saved even if you leave 

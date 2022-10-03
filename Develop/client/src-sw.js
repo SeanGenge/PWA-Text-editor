@@ -1,5 +1,5 @@
 const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
-const { CacheFirst } = require('workbox-strategies');
+const { CacheFirst, StaleWhileRevalidate } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
 const { ExpirationPlugin } = require('workbox-expiration');
@@ -27,4 +27,21 @@ warmStrategyCache({
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 // TODO: Implement asset caching
-registerRoute();
+registerRoute(
+  // filter the JS and CSS files we want to cache
+  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
+  new StaleWhileRevalidate({
+    cacheName: 'asset-cache',
+    plugins: [
+      // // Cache for a max of 30 days
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  })
+);
+
+this.addEventListener('fetch', function (event) {
+  // This fetch function is required for the SW to be detected and is intentionally empty
+  // For a more robust, real-world SW example see: https://developers.google.com/web/fundamentals/primers/service-workers
+});

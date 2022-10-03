@@ -16,6 +16,7 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      // Cleans the output directory after every build
       clean: true,
     },
     plugins: [
@@ -26,9 +27,11 @@ module.exports = () => {
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'service-worker.js',
+        swDest: 'src-sw.js',
       }),
       new WebpackPwaManifest({
+        // Remove the fingerprints from the generated files
+        fingerprints: false,
         name: 'Just Another Text Editor',
         short_name: 'JATE',
         description: 'Web based text editor that saves your text',

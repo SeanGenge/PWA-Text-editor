@@ -10,7 +10,7 @@ A pwa web based text editor. Your text gets saved even if you leave
 
 - [License](#license)
 
-
+![](./Assets/website.png)
 
 ## Installation
 To install the necessary dependencies, run the following command:

@@ -16,16 +16,34 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      clean: true,
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'Main file',
+        title: 'Just Another Text Editor',
+        favicon: './src/images/favicon.ico',
       }),
-      // new InjectManifest({
-      //   swSrc: './src/sw.js',
-      //   swDest: 'service-worker.js',
-      // }),
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'service-worker.js',
+      }),
+      new WebpackPwaManifest({
+        name: 'Just Another Text Editor',
+        short_name: 'JATE',
+        description: 'Web based text editor that saves your text',
+        background_color: '#222',
+        theme_color: '#31a9e1',
+        start_url: './',
+        publicPath: './',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons'),
+          },
+        ],
+      }),
     ],
 
     module: {
@@ -33,6 +51,10 @@ module.exports = () => {
         {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+          type: 'asset/resource',
         },
         {
           test: /\.m?js$/,

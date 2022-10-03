@@ -23,7 +23,7 @@ module.exports = () => {
       new HtmlWebpackPlugin({
         template: './index.html',
         title: 'Just Another Text Editor',
-        favicon: './src/favicon.ico',
+        favicon: './favicon.ico',
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
